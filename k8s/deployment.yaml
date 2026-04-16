@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sprint3-app-deployment
+  labels:
+    app: sprint3-app
+spec:
+  replicas: 2
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1
+  selector:
+    matchLabels:
+      app: sprint3-app
+  template:
+    metadata:
+      labels:
+        app: sprint3-app
+    spec:
+      containers:
+      - name: sprint3-app
+        # Replace <your-dockerhub-username> with actual username
+        image: <your-dockerhub-username>/devops-sprint3-app:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 3000
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 3000
+          initialDelaySeconds: 5
+          periodSeconds: 10
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 3000
+          initialDelaySeconds: 2
+          periodSeconds: 5
