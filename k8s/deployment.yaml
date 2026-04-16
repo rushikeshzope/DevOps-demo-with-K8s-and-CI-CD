@@ -22,7 +22,7 @@ spec:
       containers:
       - name: sprint3-app
         # Replace <your-dockerhub-username> with actual username
-        image: <your-dockerhub-username>/devops-sprint3-app:latest
+        image: rushikeshzope/devops-sprint3-app:main
         imagePullPolicy: Always
         ports:
         - containerPort: 3000
